@@ -1,0 +1,37 @@
+[문제1] in 연산자를 이용하여 직급별(job)로 입사한지 가장 오래된 사원의 사번, 직급, 입사일을 검색하되, 입사일 내림차순으로 정렬하라
+
+[문제2] location_id가 1500과 1800 사이에 있지 않고, department_name이 Sales가 아닌 곳에서 근무하는 사원들의 풀네임(first_name, last_name), 부서명을 검색하라.
+
+
+[답1]
+select ename, job, hiredate
+from emp
+where (job, hiredate)
+in (select job, min(hiredate) from emp
+group by job)
+order by hiredate desc;
+
+ENAME                JOB                 HIREDATE
+-------------------- ------------------ -------------
+SMITH                CLERK                 80/12/17
+ALLEN                SALESMAN           81/02/20
+KING                 PRESIDENT            81/11/17
+JONES                MANAGER            81/04/02
+FORD                 ANALYST              81/12/03
+
+
+[답2]
+select first_name, last_name, department_name
+from employees, departments
+where department_name != 'Sales' and location_id not between '1500' and  '1800' and departments.department_id(+) = employees.department_id;
+ 
+
+FIRST_NAME                               LAST_NAME                                DEPARTMENT_NAME
+---------------------------------------- -------------------------------------------------------------------
+Susan                                    Mavris                                   Human Resources
+Alexander                                Hunold                                          IT
+Bruce                                    Ernst                                           IT
+David                                    Austin                                          IT
+Valli                                    Pataball                                        IT
+Diana                                    Lorentz                                         IT
+Hermann                                  Baer                                    Public Relations
