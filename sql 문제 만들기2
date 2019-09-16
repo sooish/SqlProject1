@@ -1,0 +1,47 @@
+[질문1] 전직원의 연봉을 100의 자리에서 반올림하여 직원명과 함께 내림차순으로 검색하라.
+[답1]  
+select ename, round(sal,-3)
+from emp
+order by ename desc;
+
+
+[질문2] 명패 일부가 훼손돼 이름을 확정할 수 없는 직원의 책상이 있다. 이름이 'N'으로 끝나고 9월에 입사한 직원의 이름과 부서번호를 검색하라.
+[답2] 
+select ename, deptno
+from emp
+where ename like '%N' and substr(hiredate,5,1)='9';
+
+
+[질문3] 이름이 F로 시작하고 job이 analyst인 사람의 이름과 부서번호를 검색하라.
+[답3] 
+select ename, deptno
+from emp
+where ename like 'F%' and job='ANALYST';
+
+	
+[질4] 검색을 통해 직군job과 comm 사이의 관계를 유추하라.
+[답4] 
+select job, comm
+ from emp;
+=> 직군이 sales에 속하는 직원에게만 comm이 부여된다.
+
+	
+[질문5] 사원명과 부서번호 상사(mgr)를 검색하고, 상사별, 입사일 순서로 내림차순하라.
+[답5] 
+select ename, deptno, mgr
+from emp
+order by mgr asc, hiredate desc;
+
+	
+[질문6] 상사가 7698번이 아닌 직원들 중 이름이 C 혹은 S로 시작되는 직원의 이름을 검색하라.
+[답6] 
+select ename
+from emp
+ where mgr != 7698 and ename like 'C%' or ename like 'S%';
+	
+	
+[질문7] 81/04/03에서 81/06/08 사이에 입사하지 않은 사원들의 이름과 입사일을 검색하라.
+[답7] 
+select ename, hiredate
+from emp
+where hiredate not between '81/04/03' and '81/06/08';
